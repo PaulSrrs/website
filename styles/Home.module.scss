@@ -1,0 +1,194 @@
+@import "variables";
+
+/* Utils */
+.block {
+  display: block;
+}
+
+.flex {
+  display: flex;
+}
+
+.flexRow {
+  flex-direction: row;
+}
+
+.flexColumn {
+  flex-direction: column;
+}
+
+.alignItemsCenter {
+  align-items: center;
+}
+
+.justifyContentEnd {
+  justify-content: flex-end;
+}
+
+.justifyContentCenter {
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .mdBlock {
+    display: block;
+  }
+
+  .mdFlex {
+    display: flex;
+  }
+
+  .flexMdRow {
+    flex-direction: row;
+  }
+
+  .flexMdColumn {
+    flex-direction: column;
+  }
+
+  .alignItemsMdCenter {
+    align-items: center;
+  }
+
+  .mdJustifyContentEnd {
+    justify-content: flex-end;
+  }
+
+  .mdJustifyContentCenter {
+    justify-content: center;
+  }
+}
+/* End of Utils */
+
+.inner {
+  width: 100%;
+  max-width: $inner-width;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.outer {
+  width: 100%;
+  max-width: $outer-width;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+section {
+  .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1.25rem;
+  }
+  .content {
+    font-size: 1rem;
+  }
+}
+
+.header {
+  width: 100%;
+  border-bottom: 1px solid var(--header-border);
+  .outer {
+    padding: 0.5rem 1rem;
+  }
+  .themeBtnCtn {
+    display: flex;
+    margin-right: 1rem;
+
+    .themeBtn {
+      cursor: pointer;
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+  .flag {
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+.main {
+  padding: 2rem 1rem;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .welcomeMessage {
+    .title {
+      font-size: 1.5rem;
+    }
+  }
+
+  .profileCtn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .profileName {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-top: 1rem;
+    }
+
+    h1 {
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin: 0 1rem 0 0;
+    }
+
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-left: 0.5rem;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  section {
+    .title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 2rem;
+    }
+    .content {
+      font-size: 1.25rem;
+    }
+  }
+  .header {
+    .inner {
+      padding: 1rem;
+    }
+  }
+  .main {
+    padding: 7rem 1rem;
+  }
+  .hero {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+
+    .welcomeMessage {
+      max-width: 460px;
+
+      .title {
+        font-size: 2.25rem;
+      }
+
+      .content {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}

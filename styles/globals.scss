@@ -1,0 +1,57 @@
+:root {
+  --bg-background: #F8F8F8;
+  --bg-foreground: white;
+  --header-border: rgba(0, 0, 0, 0.2);
+  --deep-blue: #027DFD;
+}
+
+[data-theme='dark'] {
+  --bg-background: black;
+  --bg-foreground: #1E1E1E;
+  --header-border: rgba(255, 255, 255, 0.2);
+}
+
+html,
+body {
+  background: var(--bg-background);
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, 'Montserrat', sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.blue {
+  color: var(--deep-blue);
+}
+
+.bold {
+  font-weight: bold;
+}
+
+/* dark-mode transition */
+html,
+body,
+header,
+main,
+footer,
+div,
+p,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+pre {
+  transition: color, background, background-color 0.3s ease;
+}
+
+* {
+  box-sizing: border-box;
+}
