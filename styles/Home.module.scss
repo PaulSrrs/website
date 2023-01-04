@@ -108,19 +108,27 @@ section {
 
   .themeBtnCtn {
     display: flex;
-    //margin-right: 1rem;
+    align-items: center;
+
+    a {
+      display: flex;
+    }
 
     .themeBtn {
       cursor: pointer;
       width: 1.5rem;
       height: 1.5rem;
+
+      &:first-child {
+        margin-right: 1rem;
+      }
     }
   }
 
   .flag {
     cursor: pointer;
-    width: 2rem;
-    height: 2rem;
+    width: 1.75rem;
+    height: 1.75rem;
   }
 }
 
@@ -242,7 +250,7 @@ section {
     max-width: 688px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-gap: 2rem 2.5rem;
 
     .gridItem {
@@ -417,6 +425,11 @@ section {
     .achievementsGrid {
       grid-template-columns: repeat(2, 1fr);
       grid-gap: 1rem;
+    }
+  }
+  .skills {
+    .skillsGrid {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 }

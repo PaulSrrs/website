@@ -3,17 +3,36 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.scss'
 import Link from 'next/link';
-import {useTheme} from "next-themes";
 import {toast} from "react-toastify";
+import dynamic from 'next/dynamic'
+import {serverSideTranslations} from 'next-i18next/serverSideTranslations'
+import {useTranslation} from "next-i18next";
+import {useRouter} from "next/router";
+
+const I18N = dynamic(() => import('../components/I18nBtn'), {ssr: false})
+const LinkedinIcon = dynamic(() => import('../components/LinkedinIcon'), {ssr: false})
+const GithubIcon = dynamic(() => import('../components/GithubIcon'), {ssr: false})
+const GhostIcon = dynamic(() => import('../components/GhostIcon'), {ssr: false})
+const NextJsIcon = dynamic(() => import('../components/NextJsIcon'), {ssr: false})
+
+export async function getServerSideProps({locale}: any) {
+    return {
+        props: {
+            ...(await serverSideTranslations(locale, [
+                'common'
+            ]))
+        },
+    }
+}
 
 const Home: NextPage = () => {
-    const {theme, systemTheme, setTheme} = useTheme()
-    const darkMode = theme === 'system' ? systemTheme : theme;
+    const {t} = useTranslation('common');
+    const router = useRouter()
 
     const _handleSubmit = async (e: any) => {
-        let submitForm = document.getElementById('submit-form');
-        let send = submitForm!.querySelector('p');
-        let loading = submitForm!.querySelector('div');
+        const submitForm = document.getElementById('submit-form');
+        const send = submitForm!.querySelector('p');
+        const loading = submitForm!.querySelector('div');
 
         submitForm!.setAttribute('style', 'cursor: default;pointer-events: none;');
         send!.setAttribute('style', 'display: none');
@@ -97,18 +116,22 @@ const Home: NextPage = () => {
                 <div
                     className={styles.outer}>
                     <div className={styles.themeBtnCtn}>
-                        <Image className={styles.themeBtn}
-                               alt="Icône de darkMode"
-                               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                               src={theme === 'dark' ? "/buttons/light-mode.svg" : "/buttons/dark-mode.svg"}
-                               height={20}
-                               width={20}/>
+                        <I18N/>
+                        {router.locale === 'fr' ? <Link href={router.pathname} locale="en">
+                            <Image className={styles.flag}
+                                   alt={"Drapeau Anglais"}
+                                   src="/flags/uk.svg"
+                                   height={28}
+                                   width={28}/>
+                        </Link> : <Link href={router.pathname} locale="fr">
+                            <Image className={styles.flag}
+                                   alt={"Drapeau Français"}
+                                   src="/flags/fr.svg"
+                                   height={28}
+                                   width={28}/>
+                        </Link>}
+
                     </div>
-                    {/* <Image className={styles.flag}
-                           alt={"Drapeau De La France"}
-                           src="/flags/fr.svg"
-                           height={24}
-                           width={24}/> */}
                 </div>
             </header>
             <main className={styles.outer}>
@@ -123,36 +146,23 @@ const Home: NextPage = () => {
                                        width={180}/>
                                 <div className={styles.profileName}>
                                     <h1>Paul Surrans</h1>
-                                    <Link href="https://www.linkedin.com/in/paulsurrans/">
+                                    <Link href="https://www.linkedin.com/in/paulsurrans/" legacyBehavior>
                                         <a className={styles.flex} target="_blank">
-                                            <Image className={styles.themeBtn}
-                                                   alt="Icône de Linkedin"
-                                                   src={theme === 'dark' ? "/social-networks/linkedin-light.svg" : "/social-networks/linkedin-dark.svg"}
-                                                   height={20}
-                                                   width={20}/>
+                                            <LinkedinIcon/>
                                         </a>
                                     </Link>
-                                    <Link href="https://github.com/PaulSrrs">
+                                    <Link href="https://github.com/PaulSrrs" legacyBehavior>
                                         <a className={styles.flex} target="_blank">
-                                            <Image className={styles.themeBtn}
-                                                   alt="Icône de Github"
-                                                   src={theme === 'dark' ? "/social-networks/github-light.svg" : "/social-networks/github-dark.svg"}
-                                                   height={20}
-                                                   width={20}/>
+                                            <GithubIcon/>
                                         </a>
                                     </Link>
                                 </div>
                             </div>
                             <div className={styles.welcomeMessage}>
-                                <p className={styles.title}><span className={"blue"}>Bienvenue</span> 😊,</p>
+                                <p className={styles.title}><span className={"blue"}>{t('welcome')}</span> 😊,</p>
                                 <p className={styles.content}>
-                                    Ravi de vous avoir sur mon site.<br/><br/>
-
-                                    Vous pouvez en apprendre un peu plus
-                                    sur moi, bonne navigation !<br/><br/>
-
-                                    Je suis ouvert à de nouvelles opportunités,
-                                    n’hésitez pas à <Link href="#contact-me"><a className={"blue bold"}>me contacter</a></Link>.
+                                    {t('intro')}<Link href="#contact-me" legacyBehavior><a
+                                    className={"blue bold"}>&nbsp;{t('contactMe')}</a></Link>.
                                 </p>
                             </div>
                         </section>
@@ -160,21 +170,40 @@ const Home: NextPage = () => {
 
                         </div>
                         <section className={styles.whoAmI}>
-                            <h2 className={styles.title}>Qui suis-je ?</h2>
+                            <h2 className={styles.title}>{t('whoAmI')}</h2>
                             <p className={[styles.content, styles.textJustify].join(' ')}>
-                                Laissez-moi me présenter un peu plus en détails 😇 :<br/><br/>
-
-                                Actuellement en 5ème année à Epitech, l’informatique a toujours été une vraie passion
-                                pour moi.
-                                Lors de mes études, je me suis vite orienté vers le développement Front-End (Mobile et
-                                Web).
-                                Mon objectif aujourd’hui est de m’orienter vers le développement blockchain / Web3.
+                                {t('whoAmIContent')}
                             </p>
                         </section>
                         <section className={styles.achievements}>
-                            <h2 className={styles.title}>Réalisations</h2>
+                            <h2 className={styles.title}>{t('achievements')}</h2>
                             <div className={styles.achievementsGrid}>
-                                <Link href="https://cryptoast.fr/cryptoast-nouvelle-version-site-nouveau-logo/">
+                                <Link href="https://authentics.vercel.app/" legacyBehavior>
+                                    <a target="_blank" className={styles.gridItem}>
+                                        <div style={{
+                                            backgroundImage: 'url("/card-bg/authentics-bg.jpeg")',
+                                            filter: "blur(3px) brightness(90%)"
+                                        }}
+                                             className={styles.illustration}>
+                                        </div>
+                                        <h3 className={styles.title}>Authentics</h3>
+                                        <p className={styles.description}>({t('personalWeb3Project')})</p>
+                                    </a>
+                                </Link>
+                                <Link href="https://keyboon.fr/" legacyBehavior>
+                                    <a target="_blank" className={styles.gridItem}>
+                                        <div style={{
+                                            backgroundImage: 'url("/card-bg/keyboon-bg.jpeg")',
+                                            filter: "blur(3px) brightness(90%)"
+                                        }}
+                                             className={styles.illustration}>
+                                        </div>
+                                        <h3 className={styles.title}>Keyboon</h3>
+                                        <p className={styles.description}>({t('TMS')})</p>
+                                    </a>
+                                </Link>
+                                <Link href="https://cryptoast.fr/cryptoast-nouvelle-version-site-nouveau-logo/"
+                                      legacyBehavior>
                                     <a target="_blank" className={styles.gridItem}>
                                         <div style={{
                                             backgroundImage: 'url("/card-bg/cryptoast-bg.jpg")',
@@ -183,10 +212,10 @@ const Home: NextPage = () => {
                                              className={styles.illustration}>
                                         </div>
                                         <h3 className={styles.title}>Cryptoast</h3>
-                                        <p className={styles.description}>(Site web V3)</p>
+                                        <p className={styles.description}>({t('cryptoastV3')})</p>
                                     </a>
                                 </Link>
-                                <Link href="https://ghost.paul-surrans.fr/">
+                                <Link href="https://llmh.fr/" legacyBehavior>
                                     <a target="_blank" style={{border: "1px solid rgba(255, 255, 255, 0.33)"}}
                                        className={styles.gridItem}>
                                         <div style={{
@@ -196,10 +225,10 @@ const Home: NextPage = () => {
                                              className={styles.illustration}>
                                         </div>
                                         <h3 className={styles.title}>Lomme Lille Métropole Handball</h3>
-                                        <p className={styles.description}>(Site web MVP)</p>
+                                        <p className={styles.description}>({t('website')})</p>
                                     </a>
                                 </Link>
-                                <Link href="https://www.socrate.education/">
+                                <Link href="https://www.socrate.education/" legacyBehavior>
                                     <a target="_blank" className={styles.gridItem}>
                                         <div style={{
                                             backgroundImage: 'url("/card-bg/socrate-bg.jpg")',
@@ -208,10 +237,10 @@ const Home: NextPage = () => {
                                              className={styles.illustration}>
                                         </div>
                                         <h3 className={styles.title}>Socrate</h3>
-                                        <p className={styles.description}>(Site Web)<br/>(Application Mobile)</p>
+                                        <p className={styles.description}>({t('website')})<br/>({t('mobileApp')})</p>
                                     </a>
                                 </Link>
-                                <Link href="https://socrate.paul-surrans.fr/">
+                                <Link href="https://socrate.paul-surrans.fr/" legacyBehavior>
                                     <a target="_blank" className={styles.gridItem}>
                                         <div style={{
                                             backgroundImage: 'url("/card-bg/socrate-bg.jpg")',
@@ -223,7 +252,7 @@ const Home: NextPage = () => {
                                         <p className={styles.description}>(Landing page V2)</p>
                                     </a>
                                 </Link>
-                                <Link href="https://socrate-old.paul-surrans.fr/">
+                                <Link href="https://socrate-old.paul-surrans.fr/" legacyBehavior>
                                     <a target="_blank" className={styles.gridItem}>
                                         <div style={{
                                             backgroundImage: 'url("/card-bg/socrate-bg.jpg")',
@@ -241,16 +270,16 @@ const Home: NextPage = () => {
                                     background: 'linear-gradient(to right bottom, var(--deep-blue), black)'
                                 }}
                                      className={styles.gridItem}>
-                                    <h3 className={styles.title}>Prochainement...</h3>
-                                    <p className={styles.description}>(Restez connecté !)</p>
+                                    <h3 className={styles.title}>{t('comingSoon')}...</h3>
+                                    <p className={styles.description}>({t('stayConnected')})</p>
                                 </div>
                             </div>
                         </section>
                         <section className={styles.skills}>
-                            <h2 className={styles.title}>Compétences</h2>
+                            <h2 className={styles.title}>{t('skills')}</h2>
                             <div className={styles.skillsGrid}>
                                 <div className={styles.gridItem}>
-                                    <Link href="https://reactjs.org/">
+                                    <Link href="https://reactjs.org/" legacyBehavior>
                                         <a className={styles.flex} target="_blank">
                                             <Image alt={"Icône de ReactJs"}
                                                    title={"ReactJs"}
@@ -261,26 +290,14 @@ const Home: NextPage = () => {
                                     </Link>
                                 </div>
                                 <div className={styles.gridItem}>
-                                    <Link className={styles.gridItem} href="https://nextjs.org/">
+                                    <Link className={styles.gridItem} href="https://nextjs.org/" legacyBehavior>
                                         <a className={styles.flex} target="_blank">
-                                            {darkMode === 'dark' ?
-                                                <Image alt={"Icône de NextJS"}
-                                                       title={"NextJS"}
-                                                       height={84}
-                                                       width={140}
-                                                       src="/skills/nextjs-light.png"/>
-                                                :
-                                                <Image alt={"Icône de NextJS"}
-                                                       title={"NextJS"}
-                                                       height={84}
-                                                       width={140}
-                                                       src="/skills/nextjs-dark.png"/>
-                                            }
+                                            <NextJsIcon/>
                                         </a>
                                     </Link>
                                 </div>
                                 <div className={styles.gridItem}>
-                                    <Link href="https://vuejs.org/">
+                                    <Link href="https://vuejs.org/" legacyBehavior>
                                         <a className={styles.flex} target="_blank">
                                             <Image alt={"Icône de VueJS"}
                                                    title={"VueJS"}
@@ -291,7 +308,7 @@ const Home: NextPage = () => {
                                     </Link>
                                 </div>
                                 <div className={styles.gridItem}>
-                                    <Link href="https://flutter.dev/">
+                                    <Link href="https://flutter.dev/" legacyBehavior>
                                         <a className={styles.flex} target="_blank">
                                             <Image alt={"Icône de Flutter"}
                                                    title={"Flutter"}
@@ -302,7 +319,7 @@ const Home: NextPage = () => {
                                     </Link>
                                 </div>
                                 <div className={styles.gridItem}>
-                                    <Link href="https://dart.dev/">
+                                    <Link href="https://dart.dev/" legacyBehavior>
                                         <a className={styles.flex} target="_blank">
                                             <Image alt={"Icône de Dart"}
                                                    title={"Dart"}
@@ -313,26 +330,14 @@ const Home: NextPage = () => {
                                     </Link>
                                 </div>
                                 <div className={styles.gridItem}>
-                                    <Link className={styles.gridItem} href="https://ghost.org/">
+                                    <Link className={styles.gridItem} href="https://ghost.org/" legacyBehavior>
                                         <a className={styles.flex} target="_blank">
-                                            {darkMode === 'dark' ?
-                                                <Image alt={"Icône de Ghost"}
-                                                       title={"Ghost"}
-                                                       height={96}
-                                                       width={96}
-                                                       src="/skills/ghost-light.png"/>
-                                                :
-                                                <Image alt={"Icône de Ghost"}
-                                                       title={"Ghost"}
-                                                       height={96}
-                                                       width={96}
-                                                       src="/skills/ghost-dark.png"/>
-                                            }
+                                            <GhostIcon/>
                                         </a>
                                     </Link>
                                 </div>
                                 <div className={styles.gridItem}>
-                                    <Link href="https://wikipedia.org/wiki/Hypertext_Markup_Language">
+                                    <Link href="https://wikipedia.org/wiki/Hypertext_Markup_Language" legacyBehavior>
                                         <a className={styles.flex} target="_blank">
                                             <Image alt={"Icône de HTML"}
                                                    title={"HTML"}
@@ -343,7 +348,7 @@ const Home: NextPage = () => {
                                     </Link>
                                 </div>
                                 <div className={styles.gridItem}>
-                                    <Link href="https://en.wikipedia.org/wiki/CSS">
+                                    <Link href="https://en.wikipedia.org/wiki/CSS" legacyBehavior>
                                         <a className={styles.flex} target="_blank">
                                             <Image alt={"Icône de CSS"}
                                                    title={"CSS"}
@@ -354,7 +359,7 @@ const Home: NextPage = () => {
                                     </Link>
                                 </div>
                                 <div className={styles.gridItem}>
-                                    <Link href="https://en.wikipedia.org/wiki/Javascript">
+                                    <Link href="https://en.wikipedia.org/wiki/Javascript" legacyBehavior>
                                         <a className={styles.flex} target="_blank">
                                             <Image alt={"Icône de JavaScript"}
                                                    title={"Javascript"}
@@ -365,7 +370,7 @@ const Home: NextPage = () => {
                                     </Link>
                                 </div>
                                 <div className={styles.gridItem}>
-                                    <Link href="https://www.typescriptlang.org/">
+                                    <Link href="https://www.typescriptlang.org/" legacyBehavior>
                                         <a className={styles.flex} target="_blank">
                                             <Image alt={"Icône de Typescript"}
                                                    title={"Typescript"}
@@ -376,7 +381,7 @@ const Home: NextPage = () => {
                                     </Link>
                                 </div>
                                 <div className={styles.gridItem}>
-                                    <Link href="https://wordpress.org/">
+                                    <Link href="https://wordpress.org/" legacyBehavior>
                                         <a style={{transform: "scale(1.33)"}}
                                            className={styles.flex} target="_blank">
                                             <Image alt={"Icône de Wordpress"}
@@ -388,7 +393,7 @@ const Home: NextPage = () => {
                                     </Link>
                                 </div>
                                 <div className={styles.gridItem}>
-                                    <Link href="https://sass-lang.com/">
+                                    <Link href="https://sass-lang.com/" legacyBehavior>
                                         <a className={styles.flex} target="_blank">
                                             <Image alt={"Icône de Sass"}
                                                    title={"Sass"}
@@ -399,7 +404,7 @@ const Home: NextPage = () => {
                                     </Link>
                                 </div>
                                 <div className={styles.gridItem}>
-                                    <Link href="https://gulpjs.com/">
+                                    <Link href="https://gulpjs.com/" legacyBehavior>
                                         <a className={styles.flex} target="_blank">
                                             <Image alt={"Icône de GulpJS"}
                                                    title={"Sass"}
@@ -410,7 +415,7 @@ const Home: NextPage = () => {
                                     </Link>
                                 </div>
                                 <div className={styles.gridItem}>
-                                    <Link href="https://figma.com/">
+                                    <Link href="https://figma.com/" legacyBehavior>
                                         <a className={styles.flex} target="_blank">
                                             <Image alt={"Icône de Figma"}
                                                    title={"Figma"}
@@ -421,7 +426,7 @@ const Home: NextPage = () => {
                                     </Link>
                                 </div>
                                 <div className={styles.gridItem}>
-                                    <Link href="https://docker.com/">
+                                    <Link href="https://docker.com/" legacyBehavior>
                                         <a className={styles.flex} target="_blank">
                                             <Image alt={"Icône de Docker"}
                                                    title={"Docker"}
@@ -434,13 +439,13 @@ const Home: NextPage = () => {
                             </div>
                         </section>
                         <section id="contact-me" className={styles.contactMe}>
-                            <h2 className={styles.title}>Me contacter 👋</h2>
+                            <h2 className={styles.title}>{t('ContactMe')} 👋</h2>
                             <p className={styles.content}>
-                                Une question ? Une mission ou un poste à me proposer ? N’hésitez pas à me contacter !
+                                {t('ContactMeIntro')}
                             </p>
                             <form onSubmit={_handleSubmit} className={styles.contactMeForm}>
                                 <div className={styles.formField}>
-                                    <label htmlFor="name">Nom</label>
+                                    <label htmlFor="name">{t('name')}</label>
                                     <input placeholder="John Doe" type="text" id="name" name="name" required/>
                                 </div>
                                 <div className={styles.formField}>
@@ -450,61 +455,55 @@ const Home: NextPage = () => {
                                 </div>
                                 <div className={styles.formField}>
                                     <label htmlFor="message">Message</label>
-                                    <textarea rows={5} placeholder="Entrez votre message ici :)" id="message"
+                                    <textarea rows={5} placeholder={`${t('enterMessage')}`} id="message"
                                               name="message" required/>
                                 </div>
 
                                 <div className={[styles.flex, styles.justifyContentCenter].join(' ')}>
                                     <button id="submit-form" type="submit">
-                                        <p>Envoyer</p>
+                                        <p>{t('send')}</p>
                                         <div style={{display: 'none'}} className="lds-dual-ring"/>
                                     </button>
                                 </div>
                             </form>
                         </section>
                         <section className={styles.usefulLinks}>
-                            <h2 className={styles.title}>Liens utiles</h2>
+                            <h2 className={styles.title}>{t('usefulLinks')}</h2>
                             <div className={styles.usefulLinksCardCtn}>
                                 <div className={styles.usefulLinksCard}>
-                                    <h3 className={styles.cardTitle}>Mon CV</h3>
-                                    <p className={styles.cardDescription}>Télécharger mon CV au format .pdf</p>
+                                    <h3 className={styles.cardTitle}>{t('myResume')}</h3>
+                                    <p className={styles.cardDescription}>{t('downloadResume')}</p>
                                     <div className={[styles.flex, styles.flexRow, styles.alignItemsCenter].join(' ')}>
-                                        <p className={styles.download}>Télécharger</p>
+                                        <p className={styles.download}>{t('download')}</p>
                                         <div className={styles.downloadBtn}>
-                                            <Link href="/documents/CV_Paul_Surrans.pdf">
-                                                <a style={{padding: '2px 0'}} className={styles.flex} target="_blank">
-                                                    <svg width="15" height="12" viewBox="0 0 15 12" fill="none"
-                                                         xmlns="http://www.w3.org/2000/svg">
-                                                        <path
-                                                            d="M14.303 6.35016C14.303 6.12541 14.211 5.90792 14.0483 5.74843L9.39967 0.985355C9.2157 0.804112 9.02467 0.724365 8.82655 0.724365C8.37372 0.724365 8.04825 1.0506 8.04825 1.49284C8.04825 1.72483 8.14023 1.92057 8.28174 2.06557L9.87373 3.7185L11.9256 5.63968L10.2841 5.53819H1.70859C1.23453 5.53819 0.909058 5.87167 0.909058 6.35016C0.909058 6.82139 1.23453 7.15488 1.70859 7.15488H10.2841L11.9256 7.05338L9.87373 8.97456L8.28174 10.6275C8.14023 10.7725 8.04825 10.9682 8.04825 11.2002C8.04825 11.6425 8.37372 11.9687 8.82655 11.9687C9.02467 11.9687 9.2157 11.8889 9.38552 11.7222L14.0483 6.94463C14.211 6.78514 14.303 6.56765 14.303 6.35016Z"
-                                                            fill="#027DFD"/>
-                                                    </svg>
-                                                </a>
-                                            </Link>
+                                            <a href="/documents/CV_Paul_Surrans.pdf" style={{padding: '2px 0'}} className={styles.flex} target="_blank">
+                                                <svg width="15" height="12" viewBox="0 0 15 12" fill="none"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path
+                                                        d="M14.303 6.35016C14.303 6.12541 14.211 5.90792 14.0483 5.74843L9.39967 0.985355C9.2157 0.804112 9.02467 0.724365 8.82655 0.724365C8.37372 0.724365 8.04825 1.0506 8.04825 1.49284C8.04825 1.72483 8.14023 1.92057 8.28174 2.06557L9.87373 3.7185L11.9256 5.63968L10.2841 5.53819H1.70859C1.23453 5.53819 0.909058 5.87167 0.909058 6.35016C0.909058 6.82139 1.23453 7.15488 1.70859 7.15488H10.2841L11.9256 7.05338L9.87373 8.97456L8.28174 10.6275C8.14023 10.7725 8.04825 10.9682 8.04825 11.2002C8.04825 11.6425 8.37372 11.9687 8.82655 11.9687C9.02467 11.9687 9.2157 11.8889 9.38552 11.7222L14.0483 6.94463C14.211 6.78514 14.303 6.56765 14.303 6.35016Z"
+                                                        fill="#027DFD"/>
+                                                </svg>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
                                 <div className={styles.usefulLinksCard}>
-                                    <h3 className={styles.cardTitle}>Maquette du site</h3>
-                                    <p className={styles.cardDescription}>Télécharger la maquette du site, au format
-                                        .fig ou .pdf</p>
+                                    <h3 className={styles.cardTitle}>{t('siteMockUp')}</h3>
+                                    <p className={styles.cardDescription}>{t('downloadMockUp')}</p>
                                     <div className={[styles.flex, styles.flexRow, styles.alignItemsCenter].join(' ')}>
-                                        <p className={styles.download}>Télécharger</p>
-
-                                        <Link href="/documents/paul-surrans-website-mock-up.fig">
-                                            <a className={styles.flex} target="_blank">
-                                                <div className={styles.downloadBtn}>
-                                                    .fig
-                                                </div>
-                                            </a>
-                                        </Link>
-                                        <Link href="/documents/paul-surrans-website-mock-up.pdf">
-                                            <a className={styles.flex} target="_blank">
-                                                <div className={styles.downloadBtn}>
-                                                    .pdf
-                                                </div>
-                                            </a>
-                                        </Link>
+                                        <p className={styles.download}>{t('download')}</p>
+                                        <a href="/documents/paul-surrans-website-mock-up.fig" className={styles.flex}
+                                           target="_blank">
+                                            <div className={styles.downloadBtn}>
+                                                .fig
+                                            </div>
+                                        </a>
+                                        <a href="/documents/paul-surrans-website-mock-up.pdf" className={styles.flex}
+                                           target="_blank">
+                                            <div className={styles.downloadBtn}>
+                                                .pdf
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -514,9 +513,9 @@ const Home: NextPage = () => {
             </main>
             <footer className={styles.footer}>
                 <div className={styles.outer}>
-                    <p className={styles.copyright}>Paul Surrans © 2022</p>
+                    <p className={styles.copyright}>Paul Surrans © 2023</p>
                     <div className={styles.socialNetworks}>
-                        <Link href="https://www.linkedin.com/in/paulsurrans/">
+                        <Link href="https://www.linkedin.com/in/paulsurrans/" legacyBehavior>
                             <a className={styles.flex} target="_blank">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -525,7 +524,7 @@ const Home: NextPage = () => {
                                 </svg>
                             </a>
                         </Link>
-                        <Link href="https://github.com/PaulSrrs">
+                        <Link href="https://github.com/PaulSrrs" legacyBehavior>
                             <a className={styles.flex} target="_blank">
                                 <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                                      xmlns="http://www.w3.org/2000/svg">
