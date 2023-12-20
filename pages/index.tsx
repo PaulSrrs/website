@@ -59,7 +59,7 @@ const Home: NextPage = () => {
                 <link rel="manifest" href="/site.webmanifest"/>
                 <meta name="msapplication-TileColor" content="#da532c"/>
                 <meta name="theme-color" content="#ffffff"/>
-                <script src="https://tally.so/widgets/embed.js">
+                <script async src="https://tally.so/widgets/embed.js">
                     Tally.loadEmbeds();
                 </script>
             </Head>
@@ -399,7 +399,7 @@ const Home: NextPage = () => {
                                 <iframe
                                     data-tally-src="https://ask.paul-surrans.fr?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1&embed=1"
                                     loading="lazy" width="100%" height="276" title="Contact form"
-                                    frameBorder="0" marginHeight="0" marginWidth="0"></iframe>
+                                    frameBorder="0" marginHeight={0} marginWidth={0}></iframe>
                             </div>
                         </section>
                         <section className={styles.usefulLinks}>
