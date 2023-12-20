@@ -1,13 +1,12 @@
 {
   "name": "website",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "scripts": {
     "postbuild": "next-sitemap",
     "lint": "next lint",
-    "dev": "node server.js",
-    "build": "next build",
-    "start": "NODE_ENV=production node server.js"
+    "dev": "next server.js",
+    "build": "next build"
   },
   "dependencies": {
     "i18next": "^23.7.11",
