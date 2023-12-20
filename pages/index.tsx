@@ -3,7 +3,6 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.scss'
 import Link from 'next/link';
-import {toast} from "react-toastify";
 import dynamic from 'next/dynamic'
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations'
 import {useTranslation} from "next-i18next";
@@ -28,56 +27,6 @@ export async function getServerSideProps({locale}: any) {
 const Home: NextPage = () => {
     const {t} = useTranslation('common');
     const router = useRouter()
-
-    const _handleSubmit = async (e: any) => {
-        const submitForm = document.getElementById('submit-form');
-        const send = submitForm!.querySelector('p');
-        const loading = submitForm!.querySelector('div');
-
-        submitForm!.setAttribute('style', 'cursor: default;pointer-events: none;');
-        send!.setAttribute('style', 'display: none');
-        loading!.setAttribute('style', 'display: block');
-
-        e.preventDefault();
-
-        const req = await fetch('https://website-mailer.paul-surrans.fr/send', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: e.target.elements.name.value,
-                email: e.target.elements.email.value,
-                message: e.target.elements.message.value
-            })
-        });
-
-        if (req.ok) {
-            toast('Votre message a bien été envoyé !', {
-                position: "bottom-center",
-                autoClose: 5000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                progress: undefined,
-            });
-            e.target.reset();
-        } else {
-            toast.error('Une erreur est survenue :(', {
-                type: 'error',
-                position: "bottom-center",
-                autoClose: 5000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                progress: undefined,
-            });
-        }
-        submitForm!.removeAttribute('style');
-        send!.removeAttribute('style');
-        loading!.setAttribute('style', 'display: none');
-    }
 
     return (
         <div className={styles.container}>
@@ -110,6 +59,9 @@ const Home: NextPage = () => {
                 <link rel="manifest" href="/site.webmanifest"/>
                 <meta name="msapplication-TileColor" content="#da532c"/>
                 <meta name="theme-color" content="#ffffff"/>
+                <script src="https://tally.so/widgets/embed.js">
+                    Tally.loadEmbeds();
+                </script>
             </Head>
 
             <header className={styles.header}>
@@ -438,34 +390,17 @@ const Home: NextPage = () => {
                                 </div>
                             </div>
                         </section>
-                        <section id="contact-me" className={styles.contactMe}>
+                        <section id="contact-me">
                             <h2 className={styles.title}>{t('ContactMe')} 👋</h2>
                             <p className={styles.content}>
                                 {t('ContactMeIntro')}
                             </p>
-                            <form onSubmit={_handleSubmit} className={styles.contactMeForm}>
-                                <div className={styles.formField}>
-                                    <label htmlFor="name">{t('name')}</label>
-                                    <input placeholder="John Doe" type="text" id="name" name="name" required/>
-                                </div>
-                                <div className={styles.formField}>
-                                    <label htmlFor="email">E-mail</label>
-                                    <input placeholder="john.doe@gmail.com" type="email" id="email" name="email"
-                                           required/>
-                                </div>
-                                <div className={styles.formField}>
-                                    <label htmlFor="message">Message</label>
-                                    <textarea rows={5} placeholder={`${t('enterMessage')}`} id="message"
-                                              name="message" required/>
-                                </div>
-
-                                <div className={[styles.flex, styles.justifyContentCenter].join(' ')}>
-                                    <button id="submit-form" type="submit">
-                                        <p>{t('send')}</p>
-                                        <div style={{display: 'none'}} className="lds-dual-ring"/>
-                                    </button>
-                                </div>
-                            </form>
+                            <div className={styles.formContainer}>
+                                <iframe
+                                    data-tally-src="https://ask.paul-surrans.fr?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1&embed=1"
+                                    loading="lazy" width="100%" height="276" title="Contact form"
+                                    frameBorder="0" marginHeight="0" marginWidth="0"></iframe>
+                            </div>
                         </section>
                         <section className={styles.usefulLinks}>
                             <h2 className={styles.title}>{t('usefulLinks')}</h2>

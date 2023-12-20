@@ -92,7 +92,14 @@ section {
 
   .content {
     font-size: 1rem;
+    margin-bottom: 1rem;
   }
+}
+
+.formContainer {
+  max-width: 500px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .header {
