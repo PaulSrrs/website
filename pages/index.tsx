@@ -4,9 +4,10 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.scss'
 import Link from 'next/link';
 import dynamic from 'next/dynamic'
-import {serverSideTranslations} from 'next-i18next/serverSideTranslations'
-import {useTranslation} from "next-i18next";
+import useTranslation from 'next-translate/useTranslation'
 import {useRouter} from "next/router";
+import ContactForm from '../components/ContactForm';
+import {CSSProperties} from "react";
 
 const I18N = dynamic(() => import('../components/I18nBtn'), {ssr: false})
 const LinkedinIcon = dynamic(() => import('../components/LinkedinIcon'), {ssr: false})
@@ -14,24 +15,20 @@ const GithubIcon = dynamic(() => import('../components/GithubIcon'), {ssr: false
 const GhostIcon = dynamic(() => import('../components/GhostIcon'), {ssr: false})
 const NextJsIcon = dynamic(() => import('../components/NextJsIcon'), {ssr: false})
 
-export async function getServerSideProps({locale}: any) {
-    return {
-        props: {
-            ...(await serverSideTranslations(locale, [
-                'common'
-            ]))
-        },
-    }
-}
-
 const Home: NextPage = () => {
-    const {t} = useTranslation('common');
-    const router = useRouter()
+    const {t, lang} = useTranslation('common');
+
+    const hideFormStyle: CSSProperties = {
+        width: 0,
+        height: 0,
+        border: 'none',
+        position: 'absolute'
+    };
 
     return (
         <div className={styles.container}>
             <Head>
-                <title>Paul Surrans</title>
+                <title>Paul Surrans - Consultant IT</title>
                 <meta name="title" content="Paul Surrans"/>
                 <meta name="description"
                       content="Bienvenue sur mon site web. Vous pouvez en apprendre un peu plus sur moi, bonne navigation !"/>
@@ -59,9 +56,6 @@ const Home: NextPage = () => {
                 <link rel="manifest" href="/site.webmanifest"/>
                 <meta name="msapplication-TileColor" content="#da532c"/>
                 <meta name="theme-color" content="#ffffff"/>
-                <script async src="https://tally.so/widgets/embed.js">
-                    Tally.loadEmbeds();
-                </script>
             </Head>
 
             <header className={styles.header}>
@@ -69,18 +63,18 @@ const Home: NextPage = () => {
                     className={styles.outer}>
                     <div className={styles.themeBtnCtn}>
                         <I18N/>
-                        {router.locale === 'fr' ? <Link href={router.pathname} locale="en">
+                        {lang === 'fr' ? <Link href={'/en'} locale="en">
                             <Image className={styles.flag}
                                    alt={"Drapeau Anglais"}
                                    src="/flags/uk.svg"
-                                   height={28}
-                                   width={28}/>
-                        </Link> : <Link href={router.pathname} locale="fr">
+                                   height={20}
+                                   width={20}/>
+                        </Link> : <Link href={'/fr'} locale="fr">
                             <Image className={styles.flag}
                                    alt={"Drapeau Français"}
                                    src="/flags/fr.svg"
-                                   height={28}
-                                   width={28}/>
+                                   height={20}
+                                   width={20}/>
                         </Link>}
 
                     </div>
@@ -396,10 +390,12 @@ const Home: NextPage = () => {
                                 {t('ContactMeIntro')}
                             </p>
                             <div className={styles.formContainer}>
-                                <iframe
-                                    data-tally-src="https://ask.paul-surrans.fr?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1&embed=1"
-                                    loading="lazy" width="100%" height="276" title="Contact form"
-                                    frameBorder="0" marginHeight={0} marginWidth={0}></iframe>
+                                <div style={lang === 'en' ? hideFormStyle : undefined}>
+                                    <ContactForm  src={t('demandes')} title={t('contactForm')}/>
+                                </div>
+                                <div style={lang === 'fr' ? hideFormStyle : undefined}>
+                                    <ContactForm src={t('ask')} title={t('contactForm')}/>
+                                </div>
                             </div>
                         </section>
                         <section className={styles.usefulLinks}>

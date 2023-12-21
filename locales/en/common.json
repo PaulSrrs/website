@@ -23,5 +23,6 @@
   "download": "Download",
   "myResume": "My resume",
   "siteMockUp": "Site's MockUp",
-  "downloadMockUp": "Download site's mockup, in .fig or .pdf format"
+  "downloadMockUp": "Download site's mockup, in .fig or .pdf format",
+  "contactForm": "Contact form"
 }

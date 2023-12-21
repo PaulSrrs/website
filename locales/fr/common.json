@@ -23,5 +23,6 @@
   "download": "Télécharger",
   "myResume": "Mon CV",
   "siteMockUp": "Maquette du site",
-  "downloadMockUp": "Télécharger la maquette du site, au format .fig ou .pdf"
+  "downloadMockUp": "Télécharger la maquette du site, au format .fig ou .pdf",
+  "contactForm": "Formulaire de contact"
 }

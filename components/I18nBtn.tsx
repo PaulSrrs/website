@@ -10,6 +10,6 @@ export default function I18nBtn() {
                    alt="Icône de darkMode"
                    onClick={() => setTheme(currentTheme === 'dark' ? 'light' : 'dark')}
                    src={theme === 'dark' ? "/buttons/light-mode.svg" : "/buttons/dark-mode.svg"}
-                   height={24}
-                   width={24}/>
+                   height={20}
+                   width={20}/>
 }
