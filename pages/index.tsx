@@ -12,7 +12,6 @@ import {CSSProperties} from "react";
 const I18N = dynamic(() => import('../components/I18nBtn'), {ssr: false})
 const LinkedinIcon = dynamic(() => import('../components/LinkedinIcon'), {ssr: false})
 const GithubIcon = dynamic(() => import('../components/GithubIcon'), {ssr: false})
-const GhostIcon = dynamic(() => import('../components/GhostIcon'), {ssr: false})
 const NextJsIcon = dynamic(() => import('../components/NextJsIcon'), {ssr: false})
 
 const Home: NextPage = () => {
@@ -124,16 +123,28 @@ const Home: NextPage = () => {
                         <section className={styles.achievements}>
                             <h2 className={styles.title}>{t('achievements')}</h2>
                             <div className={styles.achievementsGrid}>
-                                <Link href="https://authentics.vercel.app/" legacyBehavior>
+                                <Link href="https://app.woken.exchange/" legacyBehavior>
                                     <a target="_blank" className={styles.gridItem}>
                                         <div style={{
-                                            backgroundImage: 'url("/card-bg/authentics-bg.jpeg")',
+                                            backgroundImage: 'url("/card-bg/woken-bg.jpg")',
                                             filter: "blur(3px) brightness(90%)"
                                         }}
                                              className={styles.illustration}>
                                         </div>
-                                        <h3 className={styles.title}>Authentics</h3>
-                                        <p className={styles.description}>({t('personalWeb3Project')})</p>
+                                        <h3 className={styles.title}>Woken</h3>
+                                        <p className={styles.description}>(Dapp)</p>
+                                    </a>
+                                </Link>
+                                <Link href="https://wholesale.banking.societegenerale.com/fr/actus-opinions/contenus-pedagogiques/video/video/decouvrez-global-cash/" legacyBehavior>
+                                    <a target="_blank" className={styles.gridItem}>
+                                        <div style={{
+                                            backgroundImage: 'url("/card-bg/societe-generale-bg.jpg")',
+                                            filter: "blur(3px) brightness(90%)"
+                                        }}
+                                             className={styles.illustration}>
+                                        </div>
+                                        <h3 className={styles.title}>Société Générale</h3>
+                                        <p className={styles.description}>(Global cash)</p>
                                     </a>
                                 </Link>
                                 <Link href="https://keyboon.fr/" legacyBehavior>
@@ -161,6 +172,19 @@ const Home: NextPage = () => {
                                         <p className={styles.description}>({t('cryptoastV3')})</p>
                                     </a>
                                 </Link>
+                                <Link href="https://paulsrrs.github.io/cryptoast_v3_snippet/"
+                                      legacyBehavior>
+                                    <a target="_blank" className={styles.gridItem}>
+                                        <div style={{
+                                            backgroundImage: 'url("/card-bg/cryptoast-bg.jpg")',
+                                            filter: "blur(3px) brightness(90%)"
+                                        }}
+                                             className={styles.illustration}>
+                                        </div>
+                                        <h3 className={styles.title}>Cryptoast</h3>
+                                        <p className={styles.description}>(Snippet)</p>
+                                    </a>
+                                </Link>
                                 <Link href="https://llmh.fr/" legacyBehavior>
                                     <a target="_blank" style={{border: "1px solid rgba(255, 255, 255, 0.33)"}}
                                        className={styles.gridItem}>
@@ -174,16 +198,56 @@ const Home: NextPage = () => {
                                         <p className={styles.description}>({t('website')})</p>
                                     </a>
                                 </Link>
-                                <Link href="https://www.socrate.education/" legacyBehavior>
-                                    <a target="_blank" className={styles.gridItem}>
+                                <Link href="https://sc-haubourdin-loos-handball.fr/" legacyBehavior>
+                                    <a target="_blank" style={{border: "1px solid rgba(255, 255, 255, 0.33)"}}
+                                       className={styles.gridItem}>
                                         <div style={{
-                                            backgroundImage: 'url("/card-bg/socrate-bg.jpg")',
-                                            filter: "blur(1px)"
+                                            backgroundImage: 'url("/card-bg/schl-bg.jpg")',
+                                            filter: "blur(3px) brightness(50%)"
                                         }}
                                              className={styles.illustration}>
                                         </div>
-                                        <h3 className={styles.title}>Socrate</h3>
-                                        <p className={styles.description}>({t('website')})<br/>({t('mobileApp')})</p>
+                                        <h3 className={styles.title}>Sporting Club Haubourdin Loos Handball</h3>
+                                        <p className={styles.description}>({t('website')})</p>
+                                    </a>
+                                </Link>
+                                <Link href="https://safi.style/" legacyBehavior>
+                                    <a target="_blank" style={{border: "1px solid rgba(255, 255, 255, 0.33)"}}
+                                       className={styles.gridItem}>
+                                        <div style={{
+                                            backgroundImage: 'url("/card-bg/safi-bg.jpg")',
+                                            filter: "blur(3px)"
+                                        }}
+                                             className={styles.illustration}>
+                                        </div>
+                                        <h3 className={styles.title}>Safi</h3>
+                                        <p className={styles.description}>({t('website')})</p>
+                                    </a>
+                                </Link>
+                                <Link href="https://elodie-cholat.com/" legacyBehavior>
+                                    <a target="_blank" style={{border: "1px solid rgba(255, 255, 255, 0.33)"}}
+                                       className={styles.gridItem}>
+                                        <div style={{
+                                            backgroundImage: 'url("/card-bg/elodie-cholat-bg.jpg")',
+                                            filter: "blur(3px) brightness(50%)"
+                                        }}
+                                             className={styles.illustration}>
+                                        </div>
+                                        <h3 className={styles.title}>Elodie Cholat</h3>
+                                        <p className={styles.description}>({t('website')})</p>
+                                    </a>
+                                </Link>
+                                <Link href="https://marie-surrans.fr/" legacyBehavior>
+                                    <a target="_blank" style={{border: "1px solid rgba(255, 255, 255, 0.33)"}}
+                                       className={styles.gridItem}>
+                                        <div style={{
+                                            backgroundImage: 'url("/card-bg/marie-surrans-bg.jpg")',
+                                            filter: "blur(3px) brightness(50%)"
+                                        }}
+                                             className={styles.illustration}>
+                                        </div>
+                                        <h3 className={styles.title}>Marie Surrans</h3>
+                                        <p className={styles.description}>({t('website')})</p>
                                     </a>
                                 </Link>
                                 <Link href="https://socrate.paul-surrans.fr/" legacyBehavior>
@@ -225,6 +289,17 @@ const Home: NextPage = () => {
                             <h2 className={styles.title}>{t('skills')}</h2>
                             <div className={styles.skillsGrid}>
                                 <div className={styles.gridItem}>
+                                    <Link href="https://angular.io/" legacyBehavior>
+                                        <a className={styles.flex} target="_blank">
+                                            <Image alt={"Icône d'Angular"}
+                                                   title={"Angular"}
+                                                   height={108}
+                                                   width={108}
+                                                   src="/skills/angular.svg"/>
+                                        </a>
+                                    </Link>
+                                </div>
+                                <div className={styles.gridItem}>
                                     <Link href="https://reactjs.org/" legacyBehavior>
                                         <a className={styles.flex} target="_blank">
                                             <Image alt={"Icône de ReactJs"}
@@ -243,42 +318,24 @@ const Home: NextPage = () => {
                                     </Link>
                                 </div>
                                 <div className={styles.gridItem}>
-                                    <Link href="https://vuejs.org/" legacyBehavior>
+                                    <Link href="https://nodejs.org/en" legacyBehavior>
                                         <a className={styles.flex} target="_blank">
-                                            <Image alt={"Icône de VueJS"}
-                                                   title={"VueJS"}
-                                                   height={84}
+                                            <Image alt={"Icône de NodeJS"}
+                                                   title={"NodeJS"}
+                                                   height={162}
+                                                   width={108}
+                                                   src="/skills/node-js.svg"/>
+                                        </a>
+                                    </Link>
+                                </div>
+                                <div className={styles.gridItem}>
+                                    <Link href="https://nestjs.com/" legacyBehavior>
+                                        <a className={styles.flex} target="_blank">
+                                            <Image alt={"Icône de NestJS"}
+                                                   title={"NestJS"}
+                                                   height={97}
                                                    width={97}
-                                                   src="/skills/vuejs.png"/>
-                                        </a>
-                                    </Link>
-                                </div>
-                                <div className={styles.gridItem}>
-                                    <Link href="https://flutter.dev/" legacyBehavior>
-                                        <a className={styles.flex} target="_blank">
-                                            <Image alt={"Icône de Flutter"}
-                                                   title={"Flutter"}
-                                                   height={77}
-                                                   width={61}
-                                                   src="/skills/flutter.png"/>
-                                        </a>
-                                    </Link>
-                                </div>
-                                <div className={styles.gridItem}>
-                                    <Link href="https://dart.dev/" legacyBehavior>
-                                        <a className={styles.flex} target="_blank">
-                                            <Image alt={"Icône de Dart"}
-                                                   title={"Dart"}
-                                                   height={88}
-                                                   width={88}
-                                                   src="/skills/dart.png"/>
-                                        </a>
-                                    </Link>
-                                </div>
-                                <div className={styles.gridItem}>
-                                    <Link className={styles.gridItem} href="https://ghost.org/" legacyBehavior>
-                                        <a className={styles.flex} target="_blank">
-                                            <GhostIcon/>
+                                                   src="/skills/nestjs.svg"/>
                                         </a>
                                     </Link>
                                 </div>
@@ -327,40 +384,6 @@ const Home: NextPage = () => {
                                     </Link>
                                 </div>
                                 <div className={styles.gridItem}>
-                                    <Link href="https://wordpress.org/" legacyBehavior>
-                                        <a style={{transform: "scale(1.33)"}}
-                                           className={styles.flex} target="_blank">
-                                            <Image alt={"Icône de Wordpress"}
-                                                   title={"Wordpress"}
-                                                   height={120}
-                                                   width={120}
-                                                   src="/skills/wordpress.png"/>
-                                        </a>
-                                    </Link>
-                                </div>
-                                <div className={styles.gridItem}>
-                                    <Link href="https://sass-lang.com/" legacyBehavior>
-                                        <a className={styles.flex} target="_blank">
-                                            <Image alt={"Icône de Sass"}
-                                                   title={"Sass"}
-                                                   height={75}
-                                                   width={100}
-                                                   src="/skills/sass.png"/>
-                                        </a>
-                                    </Link>
-                                </div>
-                                <div className={styles.gridItem}>
-                                    <Link href="https://gulpjs.com/" legacyBehavior>
-                                        <a className={styles.flex} target="_blank">
-                                            <Image alt={"Icône de GulpJS"}
-                                                   title={"Sass"}
-                                                   height={98}
-                                                   width={44}
-                                                   src="/skills/gulp.png"/>
-                                        </a>
-                                    </Link>
-                                </div>
-                                <div className={styles.gridItem}>
                                     <Link href="https://figma.com/" legacyBehavior>
                                         <a className={styles.flex} target="_blank">
                                             <Image alt={"Icône de Figma"}
@@ -368,17 +391,6 @@ const Home: NextPage = () => {
                                                    height={84}
                                                    width={56}
                                                    src="/skills/figma.png"/>
-                                        </a>
-                                    </Link>
-                                </div>
-                                <div className={styles.gridItem}>
-                                    <Link href="https://docker.com/" legacyBehavior>
-                                        <a className={styles.flex} target="_blank">
-                                            <Image alt={"Icône de Docker"}
-                                                   title={"Docker"}
-                                                   height={73}
-                                                   width={100}
-                                                   src="/skills/docker.png"/>
                                         </a>
                                     </Link>
                                 </div>
