@@ -419,7 +419,7 @@ const Home: NextPage = () => {
                                     <div className={[styles.flex, styles.flexRow, styles.alignItemsCenter].join(' ')}>
                                         <p className={styles.download}>{t('download')}</p>
                                         <div className={styles.downloadBtn}>
-                                            <a href="/documents/CV_Paul_Surrans.pdf" style={{padding: '2px 0'}} className={styles.flex} target="_blank">
+                                            <a href="/documents/CV_Paul_Surrans_2024.pdf" style={{padding: '2px 0'}} className={styles.flex} target="_blank">
                                                 <svg width="15" height="12" viewBox="0 0 15 12" fill="none"
                                                      xmlns="http://www.w3.org/2000/svg">
                                                     <path
